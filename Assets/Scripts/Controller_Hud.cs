@@ -16,13 +16,13 @@ public class Controller_Hud : MonoBehaviour
     {
         if (GameManager.gameOver)
         {
-            Time.timeScale = 0;
+            Time.timeScale = 1;
             gameOverText.text = "Game Over" ;
             gameOverText.gameObject.SetActive(true);
         }
         if (GameManager.winCondition)
         {
-            Time.timeScale = 0;
+            Time.timeScale = 1;
             gameOverText.text = "You Win";
             gameOverText.gameObject.SetActive(true);
         }

@@ -17,13 +17,13 @@ public class Controller_Player : MonoBehaviour
 
     public LayerMask floor;
 
-    internal RaycastHit leftHit,rightHit,downHit;
+    internal RaycastHit leftHit,rightHit,downHit,upHit;
 
     public float distanceRay,downDistanceRay;
 
     private bool canMoveLeft, canMoveRight,canJump;
     internal bool onFloor;
-
+    public bool comprobar;
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -38,7 +38,6 @@ public class Controller_Player : MonoBehaviour
             Movement();
         }
     }
-
     private void Update()
     {
         if (GameManager.actualPlayer == playerNumber)
@@ -69,7 +68,6 @@ public class Controller_Player : MonoBehaviour
             {
                 canJump = false;
             }
-
         }
         else
         {
@@ -80,37 +78,36 @@ public class Controller_Player : MonoBehaviour
             else
             {
                 if (IsOnSomething())
-                {
+                {  
                     if (downHit.collider.gameObject.CompareTag("Player"))
                     {
                         rb.constraints = RigidbodyConstraints.FreezePositionZ | RigidbodyConstraints.FreezeRotation;
                     }
                 }
+                
             }
         }
     }
 
 
-
-
     public virtual bool IsOnSomething()
     {
-        return Physics.BoxCast(transform.position, new Vector3(transform.localScale.x * 0.9f, transform.localScale.y/3,transform.localScale.z*0.9f), Vector3.down, out downHit, Quaternion.identity, downDistanceRay);
+        return Physics.BoxCast(transform.position, new Vector3(transform.localScale.x * 0.9f, transform.localScale.y / 3, transform.localScale.z * 0.9f), Vector3.down, out downHit, Quaternion.identity, downDistanceRay);
     }
 
     public virtual bool SomethingRight()
     {
-        Ray landingRay = new Ray(new Vector3(transform.position.x,transform.position.y-(transform.localScale.y / 2.2f),transform.position.z), Vector3.right);
+        Ray landingRay = new Ray(new Vector3(transform.position.x,transform.position.y-(transform.localScale.y / 4),transform.position.z), Vector3.right);
         Debug.DrawRay(landingRay.origin, landingRay.direction, Color.green);
         return Physics.Raycast(landingRay, out rightHit, transform.localScale.x/1.8f);
     }
-
     public virtual bool SomethingLeft()
     {
-        Ray landingRay = new Ray(new Vector3(transform.position.x, transform.position.y - (transform.localScale.y/2.2f), transform.position.z), Vector3.left);
+        Ray landingRay = new Ray(new Vector3(transform.position.x, transform.position.y - (transform.localScale.y/4), transform.position.z), Vector3.left);
         Debug.DrawRay(landingRay.origin, landingRay.direction, Color.green);
         return Physics.Raycast(landingRay, out leftHit, transform.localScale.x/1.8f);
     }
+
 
     private void Movement()
     {
@@ -154,14 +151,27 @@ public class Controller_Player : MonoBehaviour
         {
             onFloor = true;
         }
-
     }
-
     private void OnCollisionExit(Collision collision)
     {
         if (collision.gameObject.CompareTag("Floor"))
         {
             onFloor = false;
+        }
+    }
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.gameObject.CompareTag("colision")&&IsOnSomething()
+            &&!SomethingRight()&&!SomethingLeft())
+        {
+            gameObject.transform.SetParent(other.transform);
+        }
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.CompareTag("colision"))
+        {
+            gameObject.transform.SetParent(null);
         }
     }
 }
