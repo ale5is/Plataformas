@@ -8,7 +8,9 @@ public class Controller_Camera : MonoBehaviour
     private Camera _camera;
     public float dampTime = 0.15f;
     public float smoothTime = 2f;
-    public float zoomvalue;
+    public float AjustarX;
+    public float AjustarY;
+    public float zoomvalue=1;
     private Vector3 velocity = Vector3.zero;
 
 
@@ -22,9 +24,9 @@ public class Controller_Camera : MonoBehaviour
         if (players[GameManager.actualPlayer] != null)
         {
             Vector3 point = _camera.WorldToViewportPoint(players[GameManager.actualPlayer].transform.position);
-            Vector3 delta = players[GameManager.actualPlayer].transform.position - _camera.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, point.z)); //(new Vector3(0.5, 0.5, point.z));
+            Vector3 delta = players[GameManager.actualPlayer].transform.position - _camera.ViewportToWorldPoint(new Vector3(AjustarX, AjustarY, zoomvalue)); //(new Vector3(0.5, 0.5, point.z));
             Vector3 destination = transform.position + delta;
-            transform.position = Vector3.SmoothDamp(transform.position, destination, ref velocity, dampTime);
+            transform.position = Vector3.SmoothDamp(transform.position, destination, ref velocity, smoothTime);
         }
     }
 }

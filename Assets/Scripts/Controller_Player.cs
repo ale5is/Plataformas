@@ -94,7 +94,6 @@ public class Controller_Player : MonoBehaviour
     {
         return Physics.BoxCast(transform.position, new Vector3(transform.localScale.x * 0.9f, transform.localScale.y / 3, transform.localScale.z * 0.9f), Vector3.down, out downHit, Quaternion.identity, downDistanceRay);
     }
-
     public virtual bool SomethingRight()
     {
         Ray landingRay = new Ray(new Vector3(transform.position.x,transform.position.y-(transform.localScale.y / 4),transform.position.z), Vector3.right);
@@ -107,7 +106,6 @@ public class Controller_Player : MonoBehaviour
         Debug.DrawRay(landingRay.origin, landingRay.direction, Color.green);
         return Physics.Raycast(landingRay, out leftHit, transform.localScale.x/1.8f);
     }
-
 
     private void Movement()
     {
