@@ -51,6 +51,8 @@ public class Controller_Player : MonoBehaviour
             {
                 canMoveLeft = true;
             }
+           
+       
             if (SomethingRight())
             {
                 canMoveRight = false;
@@ -140,7 +142,7 @@ public class Controller_Player : MonoBehaviour
 
     public virtual void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Water"))
+        if (collision.gameObject.CompareTag("Water")|| collision.gameObject.CompareTag("Pinchos"))
         {
             Destroy(this.gameObject);
             GameManager.gameOver = true;
@@ -149,6 +151,7 @@ public class Controller_Player : MonoBehaviour
         {
             onFloor = true;
         }
+        
     }
     private void OnCollisionExit(Collision collision)
     {
@@ -156,6 +159,7 @@ public class Controller_Player : MonoBehaviour
         {
             onFloor = false;
         }
+        
     }
     private void OnTriggerStay(Collider other)
     {

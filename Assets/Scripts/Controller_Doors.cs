@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Controller_Target : MonoBehaviour
+public class Controller_Doors : MonoBehaviour
 {
     public int targetNumber;
+    public GameObject puerta;
     public bool playerOnTarget;
 
     private void Start()
@@ -19,6 +20,7 @@ public class Controller_Target : MonoBehaviour
             if (other.GetComponent<Controller_Player>().playerNumber == targetNumber)
             {
                 playerOnTarget = true;
+                puerta.GetComponent<AbrirCerrar>().activado = true;
                 //Debug.Log("P on T");
             }
         }
@@ -31,6 +33,7 @@ public class Controller_Target : MonoBehaviour
             if (other.GetComponent<Controller_Player>().playerNumber == targetNumber)
             {
                 playerOnTarget = false;
+                puerta.GetComponent<AbrirCerrar>().activado = false;
                 //Debug.Log("P off T");
             }
         }

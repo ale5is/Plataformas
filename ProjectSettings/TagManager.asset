@@ -11,6 +11,7 @@ TagManager:
   - Caja
   - Plataforma_Movi
   - colision
+  - Pinchos
   layers:
   - Default
   - TransparentFX

@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Controller_Target : MonoBehaviour
+public class Controller_Switch : MonoBehaviour
 {
     public int targetNumber;
     public bool playerOnTarget;
+    public GameObject puerta;
 
     private void Start()
     {
@@ -19,6 +20,7 @@ public class Controller_Target : MonoBehaviour
             if (other.GetComponent<Controller_Player>().playerNumber == targetNumber)
             {
                 playerOnTarget = true;
+                puerta.GetComponent<AbrirCerrar>().activado=true;
                 //Debug.Log("P on T");
             }
         }
